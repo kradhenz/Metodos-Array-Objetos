@@ -1,5 +1,3 @@
-document.write('<p>Estadisticas centro medico {ñuñoa}</p>');
-
 var radiologia = [
     {hora: '11:00', especialista: 'IGNACIO SCHULZ', paciente: 'FRANCISCA ROJAS', rut: '9878782-1', prevision: 'FONASA'},
     {hora: '11:30', especialista: 'FEDERICO SUBERCASEAUX', paciente: 'PAMELA ESTRADA', rut: '15345241-3', prevision: 'ISAPRE'},
@@ -10,7 +8,7 @@ var radiologia = [
 
 var traumatologia = [
     {hora: '8:00',  especialista: 'MARIA PAZ ALTUZARRA', paciente: 'PAULA SANCHEZ',     rut: '15554774-5', prevision: 'FONASA'},
-    {hora: '10:00', especialista: 'RAUL ARAYA',          paciente: 'ANGÃ‰LICA NAVAS',    rut: '15444147-9', prevision: 'ISAPRE'},
+    {hora: '10:00', especialista: 'RAUL ARAYA',          paciente: 'ANGÉLICA NAVAS',    rut: '15444147-9', prevision: 'ISAPRE'},
     {hora: '10:30', especialista: 'MARIA ARRIAGADA',     paciente: 'ANA KLAPP',         rut: '17879423-9', prevision: 'ISAPRE'},
     {hora: '11:00', especialista: 'ALEJANDRO BADILLA',   paciente: 'FELIPE MARDONES',   rut: '1547423-6', prevision: 'ISAPRE'},
     {hora: '11:30', especialista: 'CECILIA BUDNIK',      paciente: 'DIEGO MARRE',       rut: '16554741-K', prevision: 'FONASA'},
@@ -28,6 +26,8 @@ var dental = [
 ];
 
 /*      START        */
+document.write('<h1>Estadísticas Centro Médico Ñuñoa</h1>');
+
 // 1st Requeriment
 traumatologia.push(
     {
@@ -42,20 +42,63 @@ traumatologia.push(
         hora: "12:00", especialista: "MATIAS ARAVENA", paciente: "SUSANA POBLETE", rut: "14345656-6", prevision: "FONASA"
     }
 );
-console.log(traumatologia);
-// 2nd Requeriment
+
+function isQueries(queries, title) {
+    document.write(`<h2>${title}</h2>`);
+    for (const query of queries) {
+        document.write(`${query.hora} - ${query.especialista} - ${query.paciente} - ${query.rut} - ${query.prevision} <br/><br/>`);
+    }
+}
+
+isQueries(traumatologia, 'Consultas Médicas Traumatológicas');
+
+// 2nd Requirement
 radiologia.shift();
 radiologia.pop();
 console.log(radiologia);
+isQueries(radiologia, 'Consultas Médicas Radiológicas');
 
 // 3rd Requirement
+isQueries(dental, 'Consultas Médicas Dentales');
 
-//Agregar código para el desafio 2 aquí
+// 4th Requirement
+document.write(`<h2>4 Pacientes del Centro Médico</h2>`);
+var patients = radiologia.concat(traumatologia, dental);
+let i = 1;
+patients.forEach(function (patient) {
+    document.write(`${i}. ${patient.paciente} <br/>`);
+    i += 1;
+});
+
+// 5th Requirement and 6th Requirement
+const isapre = [];
+const fonasa = [];
+
+patients.forEach(function(prev) {
+    if (prev.prevision === 'ISAPRE') {
+        isapre.push(prev);
+    } else if (prev.prevision === 'FONASA') {
+        fonasa.push(prev);
+    }
+});
+
+function isPrev(patients, title) {
+    document.write(`<h2>${title}</h2>`);
+    patients.forEach(function(patience, index) {
+        document.write(`${index + 1}. ${patience.paciente} - ${patience.prevision}<br/>`);
+    });
+}
+
+isPrev(isapre, 'Pacientes Isapre');
+isPrev(fonasa, 'Pacientes Fonasa');
+
+/*      END      */
+
+document.write(`<h2>Otras Informaciones</h2>`);
 
 document.write(`<p>Cantidad de atenciones para Radiología: ${radiologia.length}</p>`);
 document.write(`<p>Cantidad de atenciones para Traumatología: ${traumatologia.length}</p>`);
 document.write(`<p>Cantidad de atenciones para Dental: ${dental.length}</p>`);
-
 
 document.write(`<p>Primera atencion: ${radiologia[0].paciente} - ${radiologia[0].prevision} | Última atención: ${radiologia[radiologia.length -1].paciente} - ${radiologia[radiologia.length -1].prevision}.</p>`);
 document.write(`<p>Primera atencion: ${traumatologia[0].paciente} - ${traumatologia[0].prevision} | Última atención: ${traumatologia[traumatologia.length -1].paciente} - ${traumatologia[traumatologia.length -1].prevision}.</p>`);
