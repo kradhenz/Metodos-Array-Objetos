@@ -84,8 +84,8 @@ patients.forEach(function(prev) {
 
 function isPrev(patients, title) {
     document.write(`<h2>${title}</h2>`);
-    patients.forEach(function(patience, index) {
-        document.write(`${index + 1}. ${patience.paciente} - ${patience.prevision}<br/>`);
+    patients.forEach(function(patient, index) {
+        document.write(`${index + 1}. ${patient.paciente} - ${patient.prevision}<br/>`);
     });
 }
 
